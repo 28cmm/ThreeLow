@@ -22,18 +22,24 @@ int main(int argc, const char * argv[]) {
             
             NSString *userInput = [inputHandler stringConvert:@"please enter a command"];
             if([userInput  isEqual: @"roll"]){
-                for(int i=0;i < 5;i++){
-                    if([[gameController holdRoll] containsObject: [gameController setOfDice][i]]){
-                        NSLog(@"[%@]",[gameController setOfDice][i].currentNumber);
-                    }else{
-                        [gameController setOfDice][i] = [Dice new];
-                        NSLog(@"%@",[gameController setOfDice][i].currentNumber);
-                    
+                if([gameController.numberOfRoll integerValue] >=5){
+                    NSLog(@"please enter reset to continue. your rolled 5 time already \n");
+                }else{
+                    for(int i=0;i < 5;i++){
+                        if([[gameController holdRoll] containsObject: [gameController setOfDice][i]]){
+                            NSLog(@"[%@]",[gameController setOfDice][i].currentNumber);
+                        }else{
+                            [gameController setOfDice][i] = [Dice new];
+                            NSLog(@"%@",[gameController setOfDice][i].currentNumber);
+                        }
+                        //                    Dice * dice =[Dice new];
+                        //                    [[gameController storeRoll] insertObject:[  currentNumber] atIndex:i];
                     }
-//                    Dice * dice =[Dice new];
-//                    [[gameController storeRoll] insertObject:[  currentNumber] atIndex:i];
+                    [gameController score];
+                    gameController.numberOfRoll = @([gameController.numberOfRoll integerValue]+1);
+                    
+                    NSLog(@"\n you rolled %@ since your last reset",gameController.numberOfRoll);
                 }
-                [gameController score];
                 
 //                for(Dice *item in [dice storeRoll]){
 //
@@ -63,8 +69,10 @@ int main(int argc, const char * argv[]) {
                 }
             }else if([userInput isEqual:@"reset"]){
                 [gameController reset];
+            }else if([userInput isEqual:@"reset LS"]){
+                [gameController resetLowestScore];
             }
-            
+            NSLog(@"Score to beat: %@ \n",gameController.lowestScore);
             
         }
     }

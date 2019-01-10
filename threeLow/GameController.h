@@ -16,6 +16,9 @@ NS_ASSUME_NONNULL_BEGIN
 -(void)holdDie:(NSInteger)input;
 -(void)reset;
 -(void)score;
+-(void)resetLowestScore;
+@property NSNumber *lowestScore;
+@property NSNumber *numberOfRoll;
 @property NSMutableArray <Dice *> *setOfDice;
 @property NSMutableArray *holdRoll;
 
